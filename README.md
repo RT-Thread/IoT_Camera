@@ -1,5 +1,7 @@
 # IoT_Camera
 
+[![fb](icons/fb.png)](https://www.facebook.com/groups/309729986071484)
+
 IoT Camera is a camera with Wi-Fi wireless network. 
 
 ## Hardware
