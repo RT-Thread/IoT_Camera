@@ -1,0 +1,9 @@
+Import('rtconfig')
+import os
+from building import *
+
+cwd  = GetCurrentDir()
+
+src	= Glob('*.c')
+group = DefineGroup('rtsp', src, depend=['FH_USING_RTSP'], CPPPATH=[cwd])
+Return('group')

@@ -1,0 +1,9 @@
+Import('rtconfig')
+import os
+from building import *
+
+cwd  = GetCurrentDir()
+
+src	= Glob('*.c')
+group = DefineGroup('pes_pack', src, depend=['FH_USING_PES_PACK'], CPPPATH=[cwd])
+Return('group')

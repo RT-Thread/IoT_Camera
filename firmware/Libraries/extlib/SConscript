@@ -1,0 +1,76 @@
+Import('RTT_ROOT')
+Import('rtconfig')
+from building import *
+
+cwd  = GetCurrentDir()
+
+# The set of source files associated with this SConscript file.
+src = Glob('src/*.c')
+
+path = [cwd + '/inc']
+path += [cwd + '/inc/dsp']
+path += [cwd + '/inc/isp']
+path += [cwd + '/inc/types']
+path += [cwd + '/inc/di']
+path += [cwd + '/inc/advapi']
+
+LIBS   = Glob('*.a')
+if GetDepend('RT_USING_OV9732'):
+        LIBS += ['libov9732_rtt.a']
+if GetDepend('RT_USING_OV9712'):
+        LIBS += ['libov9712_rtt.a']
+if GetDepend('RT_USING_AR0130'):
+        LIBS += ['libar0130_rtt.a']
+if GetDepend('RT_USING_IMX138'):
+        LIBS += ['libimx-138_rtt.a']
+if GetDepend('RT_USING_GC1024'):
+        LIBS += ['libgc1024_rtt.a']
+if GetDepend('RT_USING_GC1004'):
+        LIBS += ['libgc1024_rtt.a']
+if GetDepend('RT_USING_H42'):
+        LIBS += ['libH42_rtt.a']
+if GetDepend('RT_USING_SC1020'):
+        LIBS += ['libsc1020_rtt.a']
+if GetDepend('RT_USING_BF3016'):
+        LIBS += ['libbf3016_rtt.a']
+if GetDepend('RT_USING_GC0308'):
+        LIBS += ['libgc0308_rtt.a']
+
+if not GetDepend('FH_USING_ADVAPI_MD'):
+    for item in LIBS:
+        if os.path.basename(item.rstr()) == 'libadvapi_md.a':
+            LIBS.remove(item)
+            break
+
+libadvapi_isp = None
+for item in LIBS:
+    if os.path.basename(item.rstr()) == 'libadvapi_isp.a':
+        libadvapi_isp = item
+        LIBS.remove(item)
+        break
+
+LINKFLAGS = ''
+if GetDepend('FH_USING_ADVAPI_ISP'):
+    LIBS.append(libadvapi_isp)
+    NM = rtconfig.PREFIX + 'nm'
+    import subprocess, re
+    out = subprocess.check_output([NM, cwd + "/libadvapi_isp.a"])
+
+    if GetDepend('FH_USING_MULTI_SENSOR'):
+        LINKFLAGS = ' -u ' + ' -u '.join(re.findall(r'w (.*_[^A-Z]+?)\n', out))
+    else:
+        LINKFLAGS = ' -u ' + ' -u '.join(re.findall(r'w (.*[A-Za-z])\n', out))
+
+    # print LINKFLAGS
+    LINKFLAGS = ' -u GetDefaultParam -u GetMirrorFlipBayerFormat -u GetSensorAwbGain -u GetSensorLtmCurve -u Sensor_Create'
+
+LIBPATH = [cwd]
+
+if GetDepend('FH_USING_MULTI_SENSOR'):
+    LIBPATH += [cwd + '/sensors/multiple']
+else:
+    LIBPATH += [cwd + '/sensors']
+
+group = DefineGroup('extlib', src, depend = [''], CPPPATH=path,LIBS=LIBS, LIBPATH=LIBPATH, LINKFLAGS=LINKFLAGS)
+
+Return('group')

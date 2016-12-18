@@ -1,0 +1,60 @@
+Import('RTT_ROOT')
+Import('rtconfig')
+from building import *
+print (rtconfig)
+print (RTT_ROOT)
+
+import os
+cwd = GetCurrentDir()
+
+# add the general drvers.
+src = Split("""
+uart.c
+interrupt.c
+gpio.c
+ssi.c
+trap.c
+drv_mmc.c
+i2c.c
+dma.c
+fh_dma.c
+wdt.c
+pwm.c
+""")
+
+# belows removed to plat-v2
+# fh_pmu.c
+# timer.c
+# reset.c
+
+# add Ethernet drvers.
+#if GetDepend('RT_USING_LED'):
+#	src += ['led.c']
+
+#if GetDepend('RT_USING_SDIO'):
+#	src += ['at91_mci.c']
+
+#if GetDepend('RT_USING_LWIP'):
+#	src += ['macb.c']
+
+#if GetDepend('RT_USING_I2C') and GetDepend('RT_USING_I2C_BITOPS'):
+#	src += ['at91_i2c_gpio.c']
+
+if GetDepend('RT_USING_SADC'):
+	src += ['sadc.c']
+if GetDepend('RT_USING_DMA_MEM'):
+	src += ['dma_mem.c']
+if GetDepend('RT_USING_FH_ACW') and GetDepend('RT_USING_FH_DMA'):
+	src += ['acw.c','fh_audio_mpi.c']
+if GetDepend('RT_USING_GMAC') and GetDepend('RT_USING_LWIP'):
+    src += ['fh_gmac.c']
+
+local_path = [cwd]
+
+local_path += [cwd+'/../Libraries']
+local_path += [cwd+'/../platform']
+local_path += [cwd+'/../']
+
+group = DefineGroup('Drivers', src, depend = [''], CPPPATH = [cwd])
+
+Return('group')

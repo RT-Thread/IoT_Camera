@@ -1,0 +1,9 @@
+from building import *
+
+cwd = GetCurrentDir()
+src = Glob('*.c') + Glob('*.S')
+CPPPATH = [cwd]
+
+group = DefineGroup('ARMv6', src, depend = [''], CPPPATH = CPPPATH)
+
+Return('group')

@@ -1,0 +1,8 @@
+Import('rtconfig')
+import os
+from building import *
+
+src = Glob('*.c')
+
+group = DefineGroup('Applications', src, depend = [''])
+Return('group')
