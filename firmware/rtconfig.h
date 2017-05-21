@@ -139,7 +139,7 @@
 #  define RT_DFS_ELM_USE_LFN 3              /* use long file name feature */
 #  define RT_DFS_ELM_REENTRANT
 #  define RT_DFS_ELM_CODE_PAGE 437          /* define OEM code page */
-#  define RT_DFS_ELM_MAX_LFN 256            /* the max number of file length */
+#  define RT_DFS_ELM_MAX_LFN 255            /* the max number of file length */
 #  define RT_DFS_ELM_MAX_SECTOR_SIZE 4096   /* maximal size of sector */
 # endif
 
