@@ -84,8 +84,7 @@
 #endif
 
 #ifdef RT_USING_DFS
-#include "dfs_init.h"
-#endif // RT_USING_DFS
+#include "dfs.h"
 
 #if defined(RT_USING_DFS_ELMFAT)
 #include "dfs_elm.h"
@@ -102,6 +101,8 @@
 #ifdef RT_USING_DFS_ROMFS
 #include "dfs_romfs.h"
 #endif
+
+#endif // RT_USING_DFS
 
 #ifdef RT_USING_FH_ACW
 #include "acw.h"
