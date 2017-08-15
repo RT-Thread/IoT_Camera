@@ -85,18 +85,18 @@ void mjpeg_server_thread(void *arg)
     struct sockaddr_in addr;
     socklen_t sock_len = sizeof(struct sockaddr_in);
 
-	int bufsz = 100 * 1024;
-	uint8_t *buf = (uint8_t *) malloc (bufsz);
+    int bufsz = 300 * 1024;
+    uint8_t *buf = (uint8_t *) malloc (bufsz);
 
-	if (!buf)
-	{
-		printf("no buffer yet!\n");
-		return ;
-	}
+    if (!buf)
+    {
+        printf("no buffer yet!\n");
+        return ;
+    }
 
-	startup_mjpeg();
+    startup_mjpeg();
 
-	srv_sock = socket(AF_INET, SOCK_STREAM, 0);
+    srv_sock = socket(AF_INET, SOCK_STREAM, 0);
     if (srv_sock < 0)
     {
         printf("mjpeg_server: create server socket failed due to (%s)\n",
@@ -166,68 +166,68 @@ exit:
 
 int mjpeg(int argc, char** argv)
 {
-	if (argc != 2)
-	{
-		printf("%s start|stop\n", argv[0]);
-		return 0;
-	}
+    if (argc != 2)
+    {
+        printf("%s start|stop\n", argv[0]);
+        return 0;
+    }
 
-	if (strcmp(argv[1], "start") == 0)
-	{
-		rt_thread_t tid;
+    if (strcmp(argv[1], "start") == 0)
+    {
+        rt_thread_t tid;
 
-		tid = rt_thread_create("mjpg", mjpeg_server_thread, NULL, 2048, 250, 20);
-		if (tid) rt_thread_startup(tid);
-	}
-	else
-	{
-		g_mjpeg_stop = 1;
-	}
+        tid = rt_thread_create("mjpg", mjpeg_server_thread, NULL, 2048, 250, 20);
+        if (tid) rt_thread_startup(tid);
+    }
+    else
+    {
+        g_mjpeg_stop = 1;
+    }
 
-	return 0;
+    return 0;
 }
 MSH_CMD_EXPORT(mjpeg, mjpeg server);
 
 extern int capture_jpeg(unsigned char *buf, int bufsz);
 int capture(int argc, char** argv)
 {
-	uint8_t *buf = RT_NULL;
-	int bufsz;
+    uint8_t *buf = RT_NULL;
+    int bufsz;
 
-	if (argc != 2)
-	{
-		rt_kprintf("%s filename.jpg\n", argv[0]);
-		return 0;
-	}
+    if (argc != 2)
+    {
+        rt_kprintf("%s filename.jpg\n", argv[0]);
+        return 0;
+    }
 
-	bufsz = 100 * 1024;
-	buf = (uint8_t *) malloc (bufsz);
-	if (buf)
-	{
-		bufsz = capture_jpeg(buf, bufsz);
-		if (bufsz > 0)
-		{
-			int fd;
+    bufsz = 100 * 1024;
+    buf = (uint8_t *) malloc (bufsz);
+    if (buf)
+    {
+        bufsz = capture_jpeg(buf, bufsz);
+        if (bufsz > 0)
+        {
+            int fd;
 
-			fd = open(argv[1], O_RDWR | O_TRUNC, 0);
-			if (fd >= 0)
-			{
-				write(fd, buf, bufsz);
-				close(fd);
-			}
-		}
-		else
-		{
-			rt_kprintf("capture failed!\n");
-		}
+            fd = open(argv[1], O_RDWR | O_TRUNC, 0);
+            if (fd >= 0)
+            {
+                write(fd, buf, bufsz);
+                close(fd);
+            }
+        }
+        else
+        {
+            rt_kprintf("capture failed!\n");
+        }
 
-		free(buf);
-	}
-	else
-	{
-		rt_kprintf("no buffer yet!!!\n");
-	}
+        free(buf);
+    }
+    else
+    {
+        rt_kprintf("no buffer yet!!!\n");
+    }
 
-	return 0;
+    return 0;
 }
 MSH_CMD_EXPORT(capture, capture image to jpeg file);
