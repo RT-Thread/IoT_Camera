@@ -1,6 +1,8 @@
 #include <string.h>
 #include <stdio.h>
 #include <rtthread.h>
+
+#include "platform_def.h"
 #include "isp_api.h"
 #include "logo_64x64.h"
 #include "multi_sensor.h"
@@ -58,14 +60,14 @@ int sdk_sensor_mem_init(void)
 
     if (!sensor_init)
     {
-		sdk_mem_init();
+        sdk_mem_init();
 
-		get_isp_sensor_info(&sensor_probe.sensor_infos, &sensor_probe.sensor_num);
+        get_isp_sensor_info(&sensor_probe.sensor_infos, &sensor_probe.sensor_num);
 
-		if (FHAdv_Isp_SensorInit(&sensor_probe, NULL) < 0)
-			return -1;
+        if (FHAdv_Isp_SensorInit(&sensor_probe, NULL) < 0)
+            return -1;
 
-		sensor_init = 1;
+        sensor_init = 1;
     }
 
     return 0;
@@ -284,7 +286,7 @@ void test_capture_jpeg(int chn)
 
 int capture_jpeg(unsigned char *buf, int bufsz)
 {
-	int len = bufsz;
+    int len = bufsz;
 
     FHADV_VIDEO_CHANNEL_t ch_main;
 
@@ -318,7 +320,7 @@ int capture_jpeg(unsigned char *buf, int bufsz)
     }
     else
     {
-    	len = 0;
+        len = 0;
     }
 
     FHAdv_Video_Stop(-1);
@@ -326,7 +328,6 @@ int capture_jpeg(unsigned char *buf, int bufsz)
 
     return len;
 }
-
 
 int startup_mjpeg(void)
 {
@@ -349,6 +350,8 @@ int startup_mjpeg(void)
 
     if (FHAdv_Video_Start(-1) == FH_FAILURE)
         return -1;
+
+    return 0;
 }
 
 static char test_yuv_buf[1280 * 720 * 3 / 2];

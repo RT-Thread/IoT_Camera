@@ -60,7 +60,7 @@
 static rt_err_t rt_dma_init(struct rt_device *dev);
 static rt_err_t rt_dma_open(struct rt_device *dev, rt_uint16_t oflag);
 static rt_err_t rt_dma_close(struct rt_device *dev);
-static rt_err_t rt_dma_control(struct rt_device *dev, rt_uint8_t cmd,
+static rt_err_t rt_dma_control(struct rt_device *dev, int cmd,
                                void *args);
 /*****************************************************************************
  * Global variables section - Local
@@ -113,7 +113,7 @@ static rt_err_t rt_dma_close(struct rt_device *dev)
     return (RT_EOK);
 }
 
-static rt_err_t rt_dma_control(struct rt_device *dev, rt_uint8_t cmd,
+static rt_err_t rt_dma_control(struct rt_device *dev, int cmd,
                                void *args)
 {
     struct rt_dma_device *dma;

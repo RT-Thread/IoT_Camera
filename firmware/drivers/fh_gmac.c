@@ -911,7 +911,7 @@ static rt_size_t rt_fh_gmac_write(rt_device_t dev, rt_off_t pos,
     return 0;
 }
 
-static rt_err_t rt_fh_gmac_control(rt_device_t dev, rt_uint8_t cmd, void* args)
+static rt_err_t rt_fh_gmac_control(rt_device_t dev, int cmd, void* args)
 {
     fh_gmac_object_t* gmac;
     gmac = (fh_gmac_object_t*)dev->user_data;

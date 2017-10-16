@@ -901,7 +901,7 @@ void config_alc_mod()
 
 }
 
-static rt_err_t fh_audio_ioctl(rt_device_t dev, rt_uint8_t cmd, void *arg)
+static rt_err_t fh_audio_ioctl(rt_device_t dev, int cmd, void *arg)
 {
     struct fh_audio_cfg_arg *cfg;
     struct timespec *timeout;
