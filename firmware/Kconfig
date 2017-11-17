@@ -89,14 +89,13 @@ config RT_USING_PWM
 config RT_USING_WIFI
 	bool "Support WiFi"
 	default y
-    help 
-        please use online packages iot/wi-fi/wiced WiFi   
-   
+ 
 	if RT_USING_WIFI
         config SOC_FH8620
-            bool 
-            default y
-            
+            bool "Enable SOC_FH8620"
+            default y       
+            help
+                please use online packages iot/wifi/wiced also
 	endif
     
 
