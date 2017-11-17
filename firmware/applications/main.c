@@ -27,13 +27,31 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-
 #include <msh.h>
+#include <rtdef.h>
+
+
+#ifdef RT_USING_WIFI 
+#ifdef PKG_USING_WLAN_WICED
+
+#include "wlan_wiced.h"
+
+int wifi_init(void)
+{
+    rt_kprintf("wifi init\n");
+    wifi_hw_init();
+}
+INIT_APP_EXPORT(wifi_init);
+
+#endif
+#endif
+
 
 int main(int argc, char** argv)
 {
-    FILE *fp;
-    char cmd[] = "/init.sh";
+    
+	FILE *fp;
+    char cmd[] = "sdcard/init.sh";
 
     fp = fopen(cmd, "rb");
     if (fp >= 0)
@@ -42,7 +60,11 @@ int main(int argc, char** argv)
 
         printf("exec init.sh...\n");
         msh_exec(cmd, sizeof(cmd));
-    }
-
+    }  
+    
     return 0;
 }
+
+
+
+
