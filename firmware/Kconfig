@@ -1,0 +1,142 @@
+mainmenu "RT-Thread Project Configuration"
+
+config $BSP_DIR
+    string
+    option env="BSP_ROOT"
+    default "."
+
+config $RTT_DIR
+    string
+    option env="RTT_ROOT"
+    default "rt-thread"
+
+config $PKGS_DIR
+    string
+    option env="PKGS_ROOT"
+    default "packages"
+
+source "$RTT_DIR/KConfig"
+source "$PKGS_DIR/KConfig"
+
+menu "Board Drivers"
+
+config RT_USING_UART1
+	bool "Enable UART1"
+	default y
+
+config RT_USING_UART2
+	bool "Enable UART2"
+	default y
+
+config RT_USING_GC1024
+        bool "Using GC1024 sensor"
+        default y
+
+config RT_USING_FH_DMA
+        bool "Using Fullhan DMA"
+        default y
+
+config RT_USING_DMA_MEM
+        bool "DMA memory management"
+        default y
+
+config RT_USING_FH_ACW
+        bool "Using Fullhan ACW driver"
+        default y
+
+config CONFIG_CHIP_FH8620
+        bool "Fullhan FH8620 chip"
+        default y
+
+config CONFIG_BOARD_IOTCAM
+        bool "IoT Camera board"
+        default y
+
+config CONFIG_PLAT_V2
+        bool "Platform V2"
+        default y
+
+config RT_USING_DSP
+	bool "DSP"
+	default y
+
+config RT_USING_ISP
+	bool "ISP"
+	default y
+
+config RT_USING_SFUD
+    bool "SFUD"
+	default y
+
+	if RT_USING_SFUD
+
+	config RT_SFUD_USING_SFDP
+		bool "SFUD SFDP"
+		default y
+
+	config RT_SFUD_USING_FLASH_INFO_TABLE
+		bool "Flash Information Table"
+		default y
+
+	endif
+
+config RT_USING_SADC
+	bool "SADC driver"
+	default y
+
+config RT_USING_PWM
+	bool "PWM driver"
+	default y
+
+config SOC_FH8620
+	bool
+
+config RT_USING_WIFI
+	bool "Support WiFi"
+	default y
+
+	if RT_USING_WIFI
+	config PKG_USING_WLAN_WICED
+		bool "Using wiced wifi"
+		select SOC_FH8620
+		default y
+	endif
+
+config FH_USING_ADVAPI_MD
+	bool "Advance MD API"
+	default y
+
+config FH_USING_ADVAPI_ISP
+	bool "Advance ISP API"
+	default y
+
+config FH_USING_RTSP
+	bool "RTSP protocol"
+	default y
+
+	if FH_USING_RTSP
+	config FH_USING_RTSP_RTP_TCP
+		int "RTSP/RTP on TCP"
+		default 1
+	
+	config FH_USING_RTSP_RTP_UDP
+		int "RTSP/RTP on UDP"
+		default 0
+	endif
+
+config RT_APP_THREAD_PRIORITY
+	int "default priority level of application thread"
+	default 20
+
+config RT_USING_GPIO
+    bool "Enable FH8620 GPIO Config"
+    default y
+
+config RT_USING_INTERRUPT_INFO
+    bool "Enable FH8620 Interrupt Info"
+    default y
+
+endmenu
+
+
+
