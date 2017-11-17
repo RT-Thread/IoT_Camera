@@ -31,7 +31,8 @@
 #include <rtdef.h>
 
 
-#ifdef RT_USING_WIFI
+#ifdef RT_USING_WIFI 
+#ifdef PKG_USING_WLAN_WICED
 
 #include "wlan_wiced.h"
 
@@ -42,6 +43,7 @@ int wifi_init(void)
 }
 INIT_APP_EXPORT(wifi_init);
 
+#endif
 #endif
 
 
