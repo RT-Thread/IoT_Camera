@@ -10,7 +10,13 @@ config $RTT_DIR
     option env="RTT_ROOT"
     default "rt-thread"
 
+config $PKGS_DIR
+    string
+    option env="PKGS_ROOT"
+    default "packages"
+
 source "$RTT_DIR/KConfig"
+source "$PKGS_DIR/KConfig"
 
 menu "Board Drivers"
 
@@ -82,13 +88,17 @@ config RT_USING_PWM
 	bool "PWM driver"
 	default y
 
+config SOC_FH8620
+	bool
+
 config RT_USING_WIFI
 	bool "Support WiFi"
 	default y
 
 	if RT_USING_WIFI
-	config WIFI_USING_AP6181
-		bool "AP6181"
+	config PKG_USING_WLAN_WICED
+		bool "Using wiced wifi"
+		select SOC_FH8620
 		default y
 	endif
 
@@ -118,5 +128,15 @@ config RT_APP_THREAD_PRIORITY
 	int "default priority level of application thread"
 	default 20
 
+config RT_USING_GPIO
+    bool "Enable FH8620 GPIO Config"
+    default y
+
+config RT_USING_INTERRUPT_INFO
+    bool "Enable FH8620 Interrupt Info"
+    default y
+
 endmenu
+
+
 
