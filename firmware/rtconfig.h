@@ -220,7 +220,10 @@
 /* Marvell WiFi */
 
 /* PKG_USING_MARVELLWIFI is not set */
-/* PKG_USING_WICED is not set */
+
+/* Wiced WiFi */
+
+/* PKG_USING_WLAN_WICED is not set */
 
 /* security packages */
 
@@ -243,9 +246,6 @@
 /* miscellaneous packages */
 
 /* PKG_USING_HELLO is not set */
-
-/* Board Drivers */
-
 #define RT_USING_UART1
 #define RT_USING_UART2
 #define RT_USING_GC1024
@@ -259,9 +259,8 @@
 #define RT_USING_ISP
 #define RT_USING_SADC
 #define RT_USING_PWM
-#define SOC_FH8620
 #define RT_USING_WIFI
-#define PKG_USING_WLAN_WICED
+#define SOC_FH8620
 #define FH_USING_ADVAPI_MD
 #define FH_USING_ADVAPI_ISP
 #define FH_USING_RTSP
