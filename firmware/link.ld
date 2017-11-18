@@ -12,6 +12,7 @@ SECTIONS
     {
         *(.init)
         *(.text)
+	KEEP(*(.fini))
         *(.gnu.linkonce.t*)
         
         /* section information for finsh shell */
@@ -49,13 +50,18 @@ SECTIONS
     .ctors :
     {
         PROVIDE(__ctors_start__ = .);
-        KEEP(*(SORT(.ctors.*)))
-        KEEP(*(.ctors))
-        /* new GCC version uses .init_array */
-        KEEP (*(SORT(.init_array.*)))
-        KEEP (*(.init_array))
-        PROVIDE(__ctors_end__ = .);
+	*crtbegin.o(.ctors)
+	*crtbegin?.o(.ctors)
+	*(EXCLUDE_FILE(*crtend?.o *crtend.o) .ctors)
+	*(SORT(.ctors.*))
+	*(.ctors)
+        PROVIDE(__ctors_end__ = .);       
     }
+
+    .ARM.extab : 
+    {
+	*(.ARM.extab* .gnu.linkonce.armextab.*)
+    } 
 
     /* The .ARM.exidx section is used for C++ exception handling. */
     /* .ARM.exidx is sorted, so has to go in its own output section.  */
@@ -72,8 +78,11 @@ SECTIONS
     .dtors :
     {
         PROVIDE(__dtors_start__ = .);
-        KEEP(*(SORT(.dtors.*)))
-        KEEP(*(.dtors))
+        *crtbegin.o(.dtors)
+ 		*crtbegin?.o(.dtors)
+ 		*(EXCLUDE_FILE(*crtend?.o *crtend.o) .dtors)
+ 		*(SORT(.dtors.*))
+ 		*(.dtors)
         PROVIDE(__dtors_end__ = .);
     }
 
@@ -81,8 +90,33 @@ SECTIONS
     __data_start = .;
     .data :
     {
-        *(.data)
-        *(.data.*)
+        *(vtable)
+		*(.data*)
+
+		. = ALIGN(4);
+		/* preinit data */
+		PROVIDE_HIDDEN (__preinit_array_start = .);
+		KEEP(*(.preinit_array))
+		PROVIDE_HIDDEN (__preinit_array_end = .);
+
+		. = ALIGN(4);
+		/* init data */
+		PROVIDE_HIDDEN (__init_array_start = .);
+		KEEP(*(SORT(.init_array.*)))
+		KEEP(*(.init_array))
+		PROVIDE_HIDDEN (__init_array_end = .);
+
+
+		. = ALIGN(4);
+		/* finit data */
+		PROVIDE_HIDDEN (__fini_array_start = .);
+		KEEP(*(SORT(.fini_array.*)))
+		KEEP(*(.fini_array))
+		PROVIDE_HIDDEN (__fini_array_end = .);
+
+		KEEP(*(.jcr*))
+		. = ALIGN(4);
+		/* All data end */
         *(.gnu.linkonce.d*)
     }
     __data_end = .;
@@ -92,7 +126,11 @@ SECTIONS
 
     . = ALIGN(4);
     __bss_start = .;
-    .bss : { *(.bss) }
+    .bss : 
+    { 
+	*(.bss*) 
+	*(COMMON)
+    }
     __bss_end = .;
 
     /* stabs debugging sections. */
