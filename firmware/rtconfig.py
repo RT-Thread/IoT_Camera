@@ -10,7 +10,7 @@ CROSS_TOOL   = 'gcc' # we use gcc compiler always
 PLATFORM     = 'gcc'
 LD_NAME      = 'link'
 
-EXEC_PATH    = r'arm-2014.05/bin'
+EXEC_PATH    = r'env\tools\gnu_gcc\arm_gcc\mingw\bin'
 if os.getenv('RTT_EXEC_PATH'):
     EXEC_PATH = os.getenv('RTT_EXEC_PATH')
 
@@ -39,14 +39,14 @@ if PLATFORM == 'gcc':
     CFLAGS += ' -fno-strict-aliasing '
     CFLAGS += ' -Wno-address '
     AFLAGS = ' -c' + DEVICE + ' -x assembler-with-cpp -D__ASSEMBLY__'
-    LFLAGS = DEVICE + ' -Wl,--gc-sections,-Map='+ OUTPUT_NAME +'.map,-cref,-u,_start -T' + LD_NAME +'.ld'
+    LFLAGS = DEVICE + ' -nostartfiles -Wl,--gc-sections,-Map='+ OUTPUT_NAME +'.map,-cref,-u,_start -T' + LD_NAME +'.ld'
     CPATH = ''
     LPATH = ''
     if BUILD == 'debug':
         CFLAGS += ' -O0 -gdwarf-2 '
         AFLAGS += ' -gdwarf-2'
     else:
-        CFLAGS += ' -O2'
+        CFLAGS += ' -Os'
 
     CXXFLAGS = CFLAGS
     POST_ACTION = OBJCPY + ' -O binary $TARGET '+ OUTPUT_NAME +'.bin\n' + SIZE + ' $TARGET \n'
