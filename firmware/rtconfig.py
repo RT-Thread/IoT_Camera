@@ -39,7 +39,7 @@ if PLATFORM == 'gcc':
     CFLAGS += ' -fno-strict-aliasing '
     CFLAGS += ' -Wno-address '
     AFLAGS = ' -c' + DEVICE + ' -x assembler-with-cpp -D__ASSEMBLY__'
-    LFLAGS = DEVICE + ' -Wl,--gc-sections,-Map='+ OUTPUT_NAME +'.map,-cref,-u,_start -T' + LD_NAME +'.ld'
+    LFLAGS = DEVICE + ' -nostartfiles -Wl,--gc-sections,-Map='+ OUTPUT_NAME +'.map,-cref,-u,_start -T' + LD_NAME +'.ld'
     CPATH = ''
     LPATH = ''
     if BUILD == 'debug':
