@@ -98,7 +98,7 @@
 #define RT_DFS_ELM_REENTRANT
 #define RT_USING_DFS_DEVFS
 #define RT_USING_DFS_NET
-#define HAVE_SYS_SELECT_H
+/* HAVE_SYS_SELECT_H is not set */
 /* HAVE_SYS_SOCKET_H is not set */
 /* RT_USING_DFS_ROMFS is not set */
 /* RT_USING_DFS_RAMFS is not set */
@@ -128,10 +128,6 @@
 /* RT_USING_ENC28J60 is not set */
 /* RT_USING_SPI_WIFI is not set */
 #define RT_USING_WDT
-#define RT_USING_WIFI
-
-/* Using USB */
-
 /* RT_USING_USB_HOST is not set */
 /* RT_USING_USB_DEVICE is not set */
 
@@ -223,11 +219,11 @@
 
 /* Marvell WiFi */
 
-/* PKG_USING_WLANMARVELL is not set */
+/* PKG_USING_MARVELLWIFI is not set */
 
 /* Wiced WiFi */
 
-/* PKG_USING_WLANWICED is not set */
+/* PKG_USING_WLAN_WICED is not set */
 
 /* security packages */
 
@@ -263,6 +259,7 @@
 #define RT_USING_ISP
 #define RT_USING_SADC
 #define RT_USING_PWM
+#define RT_USING_WIFI
 #define SOC_FH8620
 #define FH_USING_ADVAPI_MD
 #define FH_USING_ADVAPI_ISP
