@@ -27,23 +27,23 @@ config RT_USING_UART2
 	default y
 
 config RT_USING_GC1024
-        bool "Enable GC1024 sensor"
+        bool "Using GC1024 sensor"
         default y
 
 config RT_USING_FH_DMA
-        bool "Enable Fullhan DMA"
+        bool "Using Fullhan DMA"
         default y
 
 config RT_USING_DMA_MEM
-        bool "Enable DMA memory management"
+        bool "DMA memory management"
         default y
 
 config RT_USING_FH_ACW
-        bool "Enable Fullhan ACW driver"
+        bool "Using Fullhan ACW driver"
         default y
 
 config CONFIG_CHIP_FH8620
-        bool "Enable Fullhan FH8620 chip"
+        bool "Fullhan FH8620 chip"
         default y
 
 config CONFIG_BOARD_IOTCAM
@@ -55,15 +55,15 @@ config CONFIG_PLAT_V2
         default y
 
 config RT_USING_DSP
-	bool "Enable DSP"
+	bool "DSP"
 	default y
 
 config RT_USING_ISP
-	bool "Enable ISP"
+	bool "ISP"
 	default y
 
 config RT_USING_SFUD
-    bool "Enable SFUD"
+    bool "SFUD"
 	default y
 
 	if RT_USING_SFUD
@@ -79,32 +79,36 @@ config RT_USING_SFUD
 	endif
 
 config RT_USING_SADC
-	bool "Enable SADC driver"
+	bool "SADC driver"
 	default y
 
 config RT_USING_PWM
-	bool "Enable PWM driver"
+	bool "PWM driver"
 	default y
 
-if RT_USING_WIFI
-	config SOC_FH8620
-		bool "Enable SOC_FH8620"
-		default y       
-		help	
-		please use online packages iot/wifi/wiced also
-endif
+config RT_USING_WIFI
+	bool "Support WiFi"
+	default y
+ 
+	if RT_USING_WIFI
+        config SOC_FH8620
+            bool "Enable SOC_FH8620"
+            default y       
+            help
+                please use online packages iot/wifi/wiced also
+	endif
     
 
 config FH_USING_ADVAPI_MD
-	bool "Enable Advance MD API"
+	bool "Advance MD API"
 	default y
 
 config FH_USING_ADVAPI_ISP
-	bool "Enable Advance ISP API"
+	bool "Advance ISP API"
 	default y
 
 config FH_USING_RTSP
-	bool "Enable RTSP protocol"
+	bool "RTSP protocol"
 	default y
 
 	if FH_USING_RTSP
