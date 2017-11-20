@@ -626,7 +626,6 @@ int rt_board_driver_init()
 
 #ifdef RT_USING_SDIO
 #ifndef RT_USING_WIFI_MARVEL
-    rt_mmcsd_core_init();
     rt_mmcsd_blk_init();
 
     rt_hw_mmc_init();
