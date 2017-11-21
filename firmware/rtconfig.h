@@ -98,7 +98,7 @@
 #define RT_DFS_ELM_REENTRANT
 #define RT_USING_DFS_DEVFS
 #define RT_USING_DFS_NET
-/* HAVE_SYS_SELECT_H is not set */
+#define HAVE_SYS_SELECT_H
 /* HAVE_SYS_SOCKET_H is not set */
 /* RT_USING_DFS_ROMFS is not set */
 /* RT_USING_DFS_RAMFS is not set */
@@ -205,6 +205,7 @@
 
 /* PKG_USING_PARTITION is not set */
 /* PKG_USING_SQLITE is not set */
+/* PKG_USING_RTI is not set */
 
 /* IoT - internet of things */
 
@@ -214,12 +215,13 @@
 /* PKG_USING_WEBTERMINAL is not set */
 /* PKG_USING_CJSON is not set */
 /* PKG_USING_EZXML is not set */
+/* PKG_USING_NANOPB is not set */
 
 /* Wi-Fi */
 
 /* Marvell WiFi */
 
-/* PKG_USING_MARVELLWIFI is not set */
+/* PKG_USING_WLANMARVELL is not set */
 
 /* Wiced WiFi */
 
@@ -228,14 +230,14 @@
 /* security packages */
 
 /* PKG_USING_MBEDTLS is not set */
+/* PKG_USING_libsodium is not set */
 
 /* language packages */
 
 /* PKG_USING_JERRYSCRIPT is not set */
+/* PKG_USING_MICROPYTHON is not set */
 
 /* multimedia packages */
-
-/* PKG_USING_FASTLZ is not set */
 
 /* tools packages */
 
@@ -244,6 +246,11 @@
 /* PKG_USING_SYSTEMVIEW is not set */
 
 /* miscellaneous packages */
+
+/* PKG_USING_FASTLZ is not set */
+/* PKG_USING_MINILZO is not set */
+
+/* example package: hello */
 
 /* PKG_USING_HELLO is not set */
 #define RT_USING_UART1
