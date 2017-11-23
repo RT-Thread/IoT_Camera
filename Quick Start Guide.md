@@ -17,7 +17,7 @@
 
 ![image](./icons/scons.gif)
 
-接下来就可以将获得的rtthread.bin来进行烧录运行了。
+接下来就可以将获得的rtthread.bin来烧录运行了。
 
 
 
