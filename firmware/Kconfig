@@ -27,23 +27,23 @@ config RT_USING_UART2
 	default y
 
 config RT_USING_GC1024
-        bool "Using GC1024 sensor"
+        bool "Enable  GC1024 sensor"
         default y
 
 config RT_USING_FH_DMA
-        bool "Using Fullhan DMA"
+        bool "Enable  Fullhan DMA"
         default y
 
 config RT_USING_DMA_MEM
-        bool "DMA memory management"
+        bool "Enable DMA memory management"
         default y
 
 config RT_USING_FH_ACW
-        bool "Using Fullhan ACW driver"
+        bool "Enable  Fullhan ACW driver"
         default y
 
 config CONFIG_CHIP_FH8620
-        bool "Fullhan FH8620 chip"
+        bool "Enable Fullhan FH8620 chip"
         default y
 
 config CONFIG_BOARD_IOTCAM
@@ -51,64 +51,56 @@ config CONFIG_BOARD_IOTCAM
         default y
 
 config CONFIG_PLAT_V2
-        bool "Platform V2"
+        bool "Enable Platform V2"
         default y
 
 config RT_USING_DSP
-	bool "DSP"
+	bool "Enable DSP"
 	default y
 
 config RT_USING_ISP
-	bool "ISP"
+	bool "Enable ISP"
 	default y
 
-config RT_USING_SFUD
-    bool "SFUD"
-	default y
+if RT_USING_SFUD
 
-	if RT_USING_SFUD
+config RT_SFUD_USING_SFDP
+    bool "Enable SFUD SFDP"
+    default y
 
-	config RT_SFUD_USING_SFDP
-		bool "SFUD SFDP"
-		default y
+config RT_SFUD_USING_FLASH_INFO_TABLE
+    bool "Enable Flash Information Table"
+    default y
 
-	config RT_SFUD_USING_FLASH_INFO_TABLE
-		bool "Flash Information Table"
-		default y
-
-	endif
+endif
 
 config RT_USING_SADC
-	bool "SADC driver"
+	bool "Enable SADC driver"
 	default y
 
 config RT_USING_PWM
-	bool "PWM driver"
+	bool "Enable PWM driver"
 	default y
 
-config RT_USING_WIFI
-	bool "Support WiFi"
-	default y
- 
-	if RT_USING_WIFI
-        config SOC_FH8620
-            bool "Enable SOC_FH8620"
-            default y       
-            help
-                please use online packages iot/wifi/wiced also
-	endif
+if RT_USING_WIFI
+    config SOC_FH8620
+        bool "Enable SOC_FH8620"
+        default y       
+        help
+            please use online packages iot/wifi/wiced also
+endif
     
 
 config FH_USING_ADVAPI_MD
-	bool "Advance MD API"
+	bool "Enable Advance MD API"
 	default y
 
 config FH_USING_ADVAPI_ISP
-	bool "Advance ISP API"
+	bool "Enable Advance ISP API"
 	default y
 
 config FH_USING_RTSP
-	bool "RTSP protocol"
+	bool "Enable RTSP protocol"
 	default y
 
 	if FH_USING_RTSP
