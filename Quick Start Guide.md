@@ -17,7 +17,33 @@
 
 ![image](./icons/scons.gif)
 
-接下来就可以将获得的rtthread.bin来烧录运行了。
+接下来就可以将获得的rtthread.bin来进行烧录运行了。
+
+## 3.开启wifi功能
+
+wifi功能默认是没有开启的，可以使用env来下载相关的组件包来使用wifi功能。
+
+![image](./icons/menuconfig_add_wifi.gif)
+
+更新好在线组件包之后，重新编译下载即可。
+
+## 4.查看命令帮助的方法
+
+如果想查看某个命令的使用帮助，可以在msh命令行中输入命令+help查询。
+例如输入`wifi help`查看wifi指令的帮助信息。可以看到wifi的帮助指令：
+
+    wifi wlan_dev scan
+    wifi wlan_dev join SSID PASSWORD
+    wifi wlan_dev ap SSID [PASSWORD]
+    wifi wlan_dev up
+    wifi wlan_dev down
+    wifi wlan_dev rssi
+    wifi wlan_dev status
+
+在iot camera的3.0版本中中如果wifi正常初始化，则wlan_dev为w0,可以使用`wifi w0 join SSID PASSWORD`命令来加入wifi。
+
+
+
 
 
 
