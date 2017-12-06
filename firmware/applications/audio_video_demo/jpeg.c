@@ -85,7 +85,7 @@ void mjpeg_server_thread(void *arg)
     struct sockaddr_in addr;
     socklen_t sock_len = sizeof(struct sockaddr_in);
 
-    int bufsz = 300 * 1024;
+    int bufsz = 500 * 1024;
     uint8_t *buf = (uint8_t *) malloc (bufsz);
 
     if (!buf)
@@ -94,7 +94,6 @@ void mjpeg_server_thread(void *arg)
         return ;
     }
 
-    startup_mjpeg();
 
     srv_sock = socket(AF_INET, SOCK_STREAM, 0);
     if (srv_sock < 0)
@@ -172,11 +171,13 @@ int mjpeg(int argc, char** argv)
         return 0;
     }
 
+	startup_mjpeg();
+
     if (strcmp(argv[1], "start") == 0)
     {
         rt_thread_t tid;
 
-        tid = rt_thread_create("mjpg", mjpeg_server_thread, NULL, 2048, 250, 20);
+        tid = rt_thread_create("mjpg", mjpeg_server_thread, NULL, 2048,RT_APP_THREAD_PRIORITY+10, 10);
         if (tid) rt_thread_startup(tid);
     }
     else

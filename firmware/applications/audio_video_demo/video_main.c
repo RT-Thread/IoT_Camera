@@ -174,10 +174,10 @@ int vlcview(const char *ip, int port)
 
     ch_main.channelId = 0;
     ch_main.res       = FHADV_VIDEO_RES_720P;
-    ch_main.fps       = 30;
+    ch_main.fps       = 25;
     ch_main.bitrate   = 1536;
-    ch_main.gop       = 20;
-    ch_main.rcmode    = FHADV_RC_CBR;
+    ch_main.gop       = 4 * ch_main.fps;
+    ch_main.rcmode    = FHADV_RC_VBR;
     ch_main.cb        = video_input_callback_chn_0;
     if (FHAdv_Video_AddChannel(&ch_main) == FH_FAILURE)
         return -1;
@@ -186,8 +186,8 @@ int vlcview(const char *ip, int port)
     ch_sub.res       = FHADV_VIDEO_RES_480P;
     ch_sub.fps       = 25;
     ch_sub.bitrate   = 512;
-    ch_sub.gop       = 20;
-    ch_sub.rcmode    = FHADV_RC_CBR;
+    ch_sub.gop       = 4 * ch_sub.fps;
+    ch_sub.rcmode    = FHADV_RC_VBR;
     ch_sub.cb        = video_input_callback_chn_1;
     if (FHAdv_Video_AddChannel(&ch_sub) == FH_FAILURE)
         return -1;
