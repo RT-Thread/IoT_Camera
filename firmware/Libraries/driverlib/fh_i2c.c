@@ -202,25 +202,13 @@ static int I2C_SetSpeedCount(struct fh_i2c_obj *i2c_obj)
     return 0;
 }
 
-inline UINT8 I2C_GetData(struct fh_i2c_obj *i2c_obj)
-{
-    return GET_REG(i2c_obj->base + OFFSET_I2C_DATA_CMD) & 0xff;
-}
 
-inline void I2C_SetDataCmd(struct fh_i2c_obj *i2c_obj, UINT32 reg)
-{
-    SET_REG(i2c_obj->base + OFFSET_I2C_DATA_CMD, reg);
-}
 
-inline void I2C_SetInterruptMask(struct fh_i2c_obj *i2c_obj, UINT32 mask)
-{
-    SET_REG(i2c_obj->base + OFFSET_I2C_INTR_MASK, mask);
-}
 
-inline UINT32 I2C_GetInterruptMask(struct fh_i2c_obj *i2c_obj)
-{
-    return GET_REG(i2c_obj->base + OFFSET_I2C_INTR_MASK);
-}
+
+
+
+
 
 UINT32 I2C_ClearAndGetInterrupts(struct fh_i2c_obj *i2c_obj)
 {
@@ -301,56 +289,17 @@ int I2C_HandleTxAbort(struct fh_i2c_obj *i2c_obj)
         return 0;
 }
 
-inline UINT32 I2C_SetTransmitThreshold(struct fh_i2c_obj *i2c_obj, int txtl)
-{
-    return SET_REG(i2c_obj->base + OFFSET_I2C_TX_TL, txtl);
-}
 
-inline UINT32 I2C_GetReceiveFifoLevel(struct fh_i2c_obj *i2c_obj)
-{
-    return GET_REG(i2c_obj->base + OFFSET_I2C_RXFLR);
-}
 
-inline UINT32 I2C_GetTransmitFifoLevel(struct fh_i2c_obj *i2c_obj)
-{
-    return GET_REG(i2c_obj->base + OFFSET_I2C_TXFLR);
-}
 
-inline void I2C_SetSlaveAddress(struct fh_i2c_obj *i2c_obj, rt_uint16_t addr)
-{
-    UINT32 reg;
-    reg = GET_REG(i2c_obj->base + OFFSET_I2C_TAR);
-    reg &= ~(0x3ff);
-    reg |= addr & 0x3ff;
-    SET_REG(i2c_obj->base + OFFSET_I2C_TAR, reg);
-}
 
-inline int I2C_Abort(struct fh_i2c_obj *i2c_obj)
-{
-    int timeout = 20000;  // 20 ms
-    UINT32 reg;
-    reg = GET_REG(i2c_obj->base + OFFSET_I2C_ENABLE);
-    reg |= DW_IC_ENABLE_ABORT;
-    SET_REG(i2c_obj->base + OFFSET_I2C_ENABLE, reg);
 
-    while (GET_REG(i2c_obj->base + OFFSET_I2C_ENABLE) & DW_IC_ENABLE_ABORT)
-    {
-        if (timeout < 0)
-        {
-            rt_kprintf("ERROR: %s, timeout when aborting transfer\n", __func__);
-            return -RT_ETIMEOUT;
-        }
-        udelay(10);
-        timeout--;
-    }
 
-    return RT_EOK;
-}
 
-inline void I2C_Enable(struct fh_i2c_obj *i2c_obj, int enable)
-{
-    SET_REG(i2c_obj->base + OFFSET_I2C_ENABLE, enable);
-}
+
+
+
+
 
 void I2C_Init(struct fh_i2c_obj *i2c_obj)
 {
