@@ -35,7 +35,7 @@ int send_first_response(int client)
              "--" MJPEG_BOUNDARY "\r\n");
     if (send(client, g_send_buf, strlen(g_send_buf), 0) < 0)
     {
-        lwip_close(client);
+        close(client);
         return -1;
     }
 
@@ -54,13 +54,13 @@ int mjpeg_send_stream(int client, void *data, int size)
                  "\r\n", size);
         if (send(client, g_send_buf, strlen(g_send_buf), 0) < 0)
         {
-            lwip_close(client);
+            close(client);
             return -1;
         }
 
         if (send(client, data, size, 0) < 0)
         {
-            lwip_close(client);
+            close(client);
             return -1;
         }
 
@@ -68,7 +68,7 @@ int mjpeg_send_stream(int client, void *data, int size)
         snprintf(g_send_buf, 1024, "\r\n--" MJPEG_BOUNDARY "\r\n");
         if (send(client, g_send_buf, strlen(g_send_buf), 0) < 0)
         {
-        	lwip_close(client);
+        	close(client);
         	return -1;
         }
 
@@ -159,7 +159,7 @@ void mjpeg_server_thread(void *arg)
 	}
 
 exit:
-	if (srv_sock >= 0) lwip_close(srv_sock);
+	if (srv_sock >= 0) close(srv_sock);
 	if (buf) free(buf);
 }
 
