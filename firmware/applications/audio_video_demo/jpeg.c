@@ -6,7 +6,7 @@
 #include <finsh.h>
 
 #include <dfs_posix.h>
-#include <lwip/sockets.h>
+#include <sys/socket.h> 
 
 #include <FHAdv_video_cap.h>
 
