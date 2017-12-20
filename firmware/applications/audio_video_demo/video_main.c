@@ -90,7 +90,7 @@ unsigned char *find_start_code(unsigned char *pos, int len)
     return NULL;
 }
 
-inline void send_data_for_channel(int chn, const FHADV_VIDEO_FRM_INFO_t *info, const FH_ADDR data, const FH_SINT32 len)
+void send_data_for_channel(int chn, const FHADV_VIDEO_FRM_INFO_t *info, const FH_ADDR data, const FH_SINT32 len)
 {
     int i     = 0;
     unsigned char *pos = data;
