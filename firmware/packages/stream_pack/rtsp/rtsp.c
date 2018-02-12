@@ -6,8 +6,11 @@
 #include <errno.h>
 #include <sys/time.h>
 #include <rtthread.h>
-#include <lwip/sockets.h>
+
+#include <netdb.h>
+#include <sys/socket.h>
 #include <lwip/netif.h>
+
 #include "rtsp.h"
 
 /* rtp packet macros */
@@ -43,7 +46,7 @@
 
 #if !LWIP_POSIX_SOCKETS_IO_NAMES
 #define close lwip_close
-extern int fcntl(int s, int cmd, int val);
+// extern int fcntl(int s, int cmd, int val);
 #endif
 
 enum
