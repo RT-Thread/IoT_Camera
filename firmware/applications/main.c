@@ -40,7 +40,7 @@ int wifi_init(void)
 {
     rt_kprintf("wifi init\n");
     wifi_hw_init();
-	netif_set_default(netif_find("w01"));
+    netif_set_default(netif_find("w01"));
 }
 INIT_APP_EXPORT(wifi_init);
 
@@ -51,7 +51,7 @@ INIT_APP_EXPORT(wifi_init);
 int main(int argc, char** argv)
 {
     
-	FILE *fp;
+    FILE *fp;
     char cmd[] = "sdcard/init.sh";
 
     fp = fopen(cmd, "rb");
