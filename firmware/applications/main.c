@@ -40,6 +40,7 @@ int wifi_init(void)
 {
     rt_kprintf("wifi init\n");
     wifi_hw_init();
+	netif_set_default(netif_find("w01"));
 }
 INIT_APP_EXPORT(wifi_init);
 
